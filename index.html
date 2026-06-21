@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+  <title>Rent A Partner · premium companion marketplace</title>
+  <meta name="description" content="Book verified companions for travel, events, fitness & more. Safe, secure, premium." />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(145deg, #FFF7FA 0%, #FFE4EC 35%, #F8FAFC 100%);
+      color: #0F172A;
+      overflow-x: hidden;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+    h1,h2,h3,h4,h5 { font-family: 'Poppins', sans-serif; font-weight: 700; letter-spacing: -0.02em; }
+    .container { max-width: 1280px; margin: 0 auto; padding: 0 20px; }
+    section { padding: 60px 0; position: relative; }
+
+    .glass {
+      background: rgba(255,255,255,0.08);
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
+      border: 1px solid rgba(255,255,255,0.15);
+      box-shadow: 0 20px 50px -12px rgba(0,0,0,0.08);
+    }
+    .glass-card {
+      background: rgba(255,255,255,0.65);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid rgba(255,255,255,0.4);
+      border-radius: 32px;
+      box-shadow: 0 25px 50px -12px rgba(0,0,0,0.08);
+      transition: all 0.3s ease;
+    }
+    .glass-card:hover { transform: translateY(-4px); box-shadow: 0 35px 60px -16px rgba(0,0,0,0.12); }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #FF4D8D, #8B5CF6);
+      border: none;
+      padding: 16px 38px;
+      border-radius: 60px;
+      font-weight: 600;
+      color: white;
+      font-size: 1.1rem;
+      transition: 0.3s;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 12px 28px -8px rgba(255,77,141,0.3);
+      text-decoration: none;
+      white-space: nowrap;
+    }
+    .btn-primary:hover { transform: scale(1.03); box-shadow: 0 18px 36px -8px rgba(139,92,246,0.4); }
+    .btn-outline {
+      background: transparent;
+      border: 1.5px solid rgba(15,23,42,0.25);
+      padding: 16px 38px;
+      border-radius: 60px;
+      font-weight: 600;
+      color: #0F172A;
+      font-size: 1.1rem;
+      transition: 0.3s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+    .btn-outline:hover { background: rgba(15,23,42,0.04); border-color: #FF4D8D; }
+
+    #navbar {
+      position: fixed;
+      top: 0; left: 0; width: 100%;
+      z-index: 999;
+      padding: 12px 0;
+      transition: all 0.3s ease;
+    }
+    #navbar.scrolled {
+      background: rgba(255,255,255,0.68);
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
+      border-bottom: 1px solid rgba(255,255,255,0.3);
+      padding: 8px 0;
+      box-shadow: 0 10px 30px -10px rgba(0,0,0,0.04);
+    }
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+    .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .logo-placeholder {
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .logo-placeholder img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+    .logo { 
+      font-family: 'Poppins', sans-serif; 
+      font-weight: 800; 
+      font-size: 1.4rem; 
+      background: linear-gradient(135deg, #FF4D8D, #8B5CF6); 
+      -webkit-background-clip: text; 
+      -webkit-text-fill-color: transparent; 
+      background-clip: text; 
+    }
+    .nav-links { display: flex; align-items: center; gap: 24px; list-style: none; }
+    .nav-links a { text-decoration: none; color: #0F172A; font-weight: 500; font-size: 1rem; transition: 0.2s; }
+    .nav-links a:hover { color: #FF4D8D; }
+    .hamburger { display: none; font-size: 1.8rem; cursor: pointer; color: #0F172A; background: none; border: none; }
+
+    /* ===== SIDE MENU ===== */
+    .side-menu-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      backdrop-filter: blur(4px);
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+    .side-menu-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    .side-menu {
+      position: fixed;
+      top: 0;
+      right: -320px;
+      width: 300px;
+      height: 100%;
+      background: #FFF7FA;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      box-shadow: -10px 0 40px rgba(0,0,0,0.1);
+      z-index: 1001;
+      padding: 30px 24px;
+      transition: right 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+      overflow-y: auto;
+      border-left: 1px solid rgba(255,255,255,0.2);
+    }
+    .side-menu.open {
+      right: 0;
+    }
+    .side-menu .close-btn {
+      background: none;
+      border: none;
+      font-size: 1.8rem;
+      cursor: pointer;
+      color: #0F172A;
+      margin-bottom: 30px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+    }
+    .side-menu .close-btn i { font-size: 1.8rem; }
+    .side-menu ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .side-menu ul li a {
+      text-decoration: none;
+      color: #0F172A;
+      font-size: 1.2rem;
+      font-weight: 500;
+      transition: 0.2s;
+      display: block;
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(15,23,42,0.05);
+    }
+    .side-menu ul li a:hover { color: #FF4D8D; }
+    .side-menu .side-download-btn {
+      margin-top: 30px;
+      width: 100%;
+      justify-content: center;
+    }
+    .side-menu .logo-area-side {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 30px;
+    }
+    .side-menu .logo-area-side .logo-placeholder-side {
+      width: 40px;
+      height: 40px;
+    }
+    .side-menu .logo-area-side .logo-placeholder-side img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+    .side-menu .logo-area-side .logo-side {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 800;
+      font-size: 1.2rem;
+      background: linear-gradient(135deg, #FF4D8D, #8B5CF6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding-top: 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-content h1 {
+      font-size: clamp(2.2rem, 5vw, 4.8rem);
+      line-height: 1.1;
+      margin-bottom: 14px;
+    }
+    .hero-content p {
+      font-size: clamp(1rem, 1.2vw, 1.2rem);
+      color: #1e293b;
+      max-width: 480px;
+      margin-bottom: 20px;
+      opacity: 0.8;
+    }
+    .hero-btns { display: flex; gap: 14px; flex-wrap: wrap; }
+    .hero-btns .btn-primary, .hero-btns .btn-outline { 
+      white-space: nowrap;
+    }
+    .hero-stats { display: flex; gap: 30px; margin-top: 30px; flex-wrap: wrap; }
+    .hero-stats span { font-weight: 700; font-size: 1.6rem; display: block; font-family: 'Poppins', sans-serif; }
+    .hero-stats small { font-weight: 400; font-size: 0.85rem; opacity: 0.6; }
+
+    .phone-mockup { 
+      position: relative; 
+      display: flex; 
+      justify-content: center; 
+      width: 100%;
+    }
+    .phone-frame {
+      width: 300px;
+      height: 600px;
+      background: #0F172A;
+      border-radius: 48px;
+      padding: 12px;
+      box-shadow: 0 60px 120px -20px rgba(255,77,141,0.3);
+      border: 1px solid rgba(255,255,255,0.1);
+      position: relative;
+      z-index: 2;
+      background: #1e293b;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .phone-frame .screen {
+      background: #0F172A;
+      border-radius: 36px;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 4px;
+      text-align: center;
+      overflow: hidden;
+    }
+    .phone-frame .screen img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 36px;
+    }
+    .glow-orbs {
+      position: absolute;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(255,77,141,0.12) 0%, transparent 70%);
+      border-radius: 50%;
+      top: -80px; right: -80px;
+      z-index: 0;
+      animation: floatGlow 6s infinite alternate;
+    }
+    @keyframes floatGlow { 0% { transform: translate(0,0) scale(1); } 100% { transform: translate(20px,-20px) scale(1.1); } }
+
+    .section-title { font-size: clamp(1.8rem, 3.5vw, 3.2rem); margin-bottom: 14px; }
+    .section-sub { font-size: 1rem; opacity: 0.7; max-width: 600px; margin-bottom: 32px; }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+    .feature-item {
+      padding: 18px 14px;
+      border-radius: 20px;
+      background: rgba(255,255,255,0.5);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,0.3);
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+    .feature-item:hover { transform: translateY(-4px); box-shadow: 0 12px 30px -8px rgba(0,0,0,0.08); }
+    .feature-item i { font-size: 1.6rem; color: #FF4D8D; margin-bottom: 8px; }
+    .feature-item h4 { font-size: 0.9rem; margin-bottom: 4px; font-weight: 600; }
+    .feature-item p { font-size: 0.75rem; opacity: 0.7; margin: 0; }
+
+    .safety-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 14px;
+    }
+    .safety-grid .glass-card {
+      padding: 18px 12px;
+      text-align: center;
+      background: rgba(255,255,255,0.05);
+      border-color: rgba(255,255,255,0.08);
+      color: white;
+      border-radius: 20px;
+    }
+    .safety-grid .glass-card i { font-size: 1.4rem; color: #FF4D8D; margin-bottom: 6px; display: block; }
+    .safety-grid .glass-card h4 { font-size: 0.8rem; margin-bottom: 2px; }
+    .safety-grid .glass-card p { font-size: 0.65rem; opacity: 0.6; }
+
+    #safety { background: #0F172A; color: white; }
+
+    .step-item { display: flex; align-items: flex-start; gap: 16px; padding: 14px 0; }
+    .step-num { font-size: 1.8rem; font-weight: 800; color: #FF4D8D; min-width: 44px; }
+
+    footer { background: rgba(255,255,255,0.4); backdrop-filter: blur(20px); border-top: 1px solid rgba(255,255,255,0.2); padding: 40px 0 20px; }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 24px; }
+    .footer-grid a { display: block; opacity: 0.6; text-decoration: none; color: inherit; font-size: 0.8rem; margin: 3px 0; transition: 0.2s; cursor: pointer; }
+    .footer-grid a:hover { opacity: 1; color: #FF4D8D; }
+    .footer-grid h4 { font-size: 0.85rem; margin-bottom: 6px; }
+
+    #progress {
+      position: fixed; top: 0; left: 0; height: 3px; background: linear-gradient(90deg, #FF4D8D, #8B5CF6); z-index: 9999; width: 0%;
+      transition: width 0.1s;
+    }
+
+    .text-gradient { background: linear-gradient(135deg, #FF4D8D, #8B5CF6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+
+    /* LEGAL OVERLAY */
+    .legal-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      z-index: 9999;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      overflow-y: auto;
+    }
+    .legal-overlay.active { display: flex; }
+    .legal-modal {
+      background: #FFF7FA;
+      border-radius: 28px;
+      max-width: 800px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 32px 28px;
+      position: relative;
+      box-shadow: 0 40px 80px -20px rgba(0,0,0,0.4);
+      margin: auto;
+    }
+    .legal-modal .close-legal {
+      position: sticky;
+      top: 0;
+      float: right;
+      background: #FF4D8D;
+      color: white;
+      border: none;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: 0.2s;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 8px;
+    }
+    .legal-modal .close-legal:hover { transform: scale(1.1); }
+    .legal-modal h2 { margin-bottom: 6px; font-size: 1.6rem; }
+    .legal-modal h3 { margin: 18px 0 6px; font-size: 1.1rem; }
+    .legal-modal p, .legal-modal li { opacity: 0.8; line-height: 1.6; font-size: 0.95rem; }
+    .legal-modal ul { padding-left: 20px; margin: 6px 0; }
+    .legal-modal li { margin: 3px 0; }
+
+    .license-section {
+      margin-top: 24px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(0,0,0,0.05);
+      font-size: 0.75rem;
+      opacity: 0.6;
+      text-align: center;
+      line-height: 1.8;
+    }
+    .license-section strong { color: #0F172A; }
+
+    /* ====== DESKTOP: text left, phone right ====== */
+    @media (min-width: 993px) {
+      .hero-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+        align-items: center;
+      }
+      .hero-content { 
+        grid-column: 1; 
+        grid-row: 1;
+        text-align: left;
+      }
+      .hero-grid .phone-mockup { 
+        grid-column: 2; 
+        grid-row: 1;
+      }
+      .hero-content .phone-mockup {
+        display: none;
+      }
+      .hero-content .hero-btns { 
+        justify-content: flex-start; 
+      }
+      .hero-content .hero-stats { 
+        justify-content: flex-start; 
+      }
+    }
+
+    /* ====== MOBILE: text → phone → buttons → stats ====== */
+    @media (max-width: 992px) {
+      .hero-grid {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        width: 100%;
+      }
+      .hero-content { 
+        order: 1; 
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .hero-content .phone-mockup { 
+        order: 2; 
+        margin: 16px 0;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+      }
+      .hero-content .hero-btns { 
+        order: 3; 
+        justify-content: center;
+        width: 100%;
+      }
+      .hero-content .hero-stats { 
+        order: 4; 
+        justify-content: center;
+        width: 100%;
+      }
+      .hero-content p { 
+        margin-left: auto; 
+        margin-right: auto; 
+        max-width: 100%;
+      }
+      .hero-grid > .phone-mockup {
+        display: none;
+      }
+      .nav-links { display: none; }
+      .hamburger { display: block; }
+      .features-grid { grid-template-columns: repeat(4, 1fr); }
+      .safety-grid { grid-template-columns: repeat(3, 1fr); }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 768px) {
+      section { padding: 40px 0; }
+      .hero-btns { gap: 10px; flex-wrap: wrap; }
+      .hero-btns .btn-primary, .hero-btns .btn-outline { 
+        font-size: 1rem; 
+        padding: 14px 28px;
+        white-space: nowrap;
+        gap: 8px;
+      }
+      .hero-btns .btn-primary i, .hero-btns .btn-outline i { font-size: 1rem; }
+      .hero-content h1 { font-size: 2.2rem; }
+      .hero-content p { font-size: 1rem; }
+      .phone-frame { 
+        width: 280px; 
+        height: 560px; 
+        padding: 10px; 
+        border-radius: 40px; 
+      }
+      .phone-frame .screen { border-radius: 30px; }
+      .features-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+      .feature-item { padding: 14px 12px; border-radius: 18px; }
+      .feature-item i { font-size: 1.4rem; margin-bottom: 6px; }
+      .feature-item h4 { font-size: 0.8rem; }
+      .feature-item p { font-size: 0.7rem; }
+      .safety-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+      .safety-grid .glass-card { padding: 14px 12px; border-radius: 18px; }
+      .safety-grid .glass-card i { font-size: 1.3rem; }
+      .safety-grid .glass-card h4 { font-size: 0.75rem; }
+      .safety-grid .glass-card p { font-size: 0.65rem; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 16px; }
+      .legal-modal { padding: 20px 16px; margin: 10px; border-radius: 20px; }
+      .legal-modal h2 { font-size: 1.3rem; }
+      .legal-modal p, .legal-modal li { font-size: 0.85rem; }
+      .hero-stats { gap: 20px; }
+      .hero-stats span { font-size: 1.4rem; }
+      .hero-stats small { font-size: 0.75rem; }
+      .section-title { font-size: 1.8rem; }
+      .step-item { padding: 10px 0; gap: 12px; }
+      .step-num { font-size: 1.5rem; min-width: 38px; }
+      .glass-card { border-radius: 24px; }
+      #download .hero-btns { flex-wrap: wrap; justify-content: center; }
+      #download .hero-btns .btn-primary, #download .hero-btns .btn-outline { 
+        font-size: 1rem; 
+        padding: 14px 28px;
+        white-space: nowrap;
+      }
+      .side-menu { width: 280px; right: -300px; }
+    }
+
+    @media (max-width: 480px) {
+      section { padding: 30px 0; }
+      .container { padding: 0 14px; }
+      .hero-btns .btn-primary, .hero-btns .btn-outline { 
+        font-size: 0.9rem; 
+        padding: 12px 22px;
+        gap: 6px;
+      }
+      .hero-btns .btn-primary i, .hero-btns .btn-outline i { font-size: 0.9rem; }
+      .hero-content h1 { font-size: 1.8rem; }
+      .hero-content p { font-size: 0.9rem; }
+      .phone-frame { 
+        width: 240px; 
+        height: 480px; 
+        padding: 8px; 
+        border-radius: 34px; 
+      }
+      .phone-frame .screen { border-radius: 26px; }
+      .features-grid { gap: 10px; }
+      .feature-item { padding: 12px 10px; border-radius: 16px; }
+      .feature-item i { font-size: 1.2rem; margin-bottom: 4px; }
+      .feature-item h4 { font-size: 0.7rem; }
+      .feature-item p { font-size: 0.6rem; }
+      .safety-grid { gap: 8px; }
+      .safety-grid .glass-card { padding: 12px 10px; border-radius: 16px; }
+      .safety-grid .glass-card i { font-size: 1.1rem; }
+      .safety-grid .glass-card h4 { font-size: 0.65rem; }
+      .safety-grid .glass-card p { font-size: 0.55rem; }
+      .hero-stats { gap: 14px; }
+      .hero-stats span { font-size: 1.2rem; }
+      .hero-stats small { font-size: 0.65rem; }
+      .section-title { font-size: 1.5rem; }
+      .step-item { padding: 8px 0; gap: 10px; }
+      .step-num { font-size: 1.3rem; min-width: 32px; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+      .footer-grid a { font-size: 0.7rem; }
+      .footer-grid h4 { font-size: 0.75rem; }
+      .legal-modal { padding: 16px 12px; border-radius: 16px; }
+      .legal-modal h2 { font-size: 1.1rem; }
+      .legal-modal h3 { font-size: 0.95rem; }
+      .legal-modal p, .legal-modal li { font-size: 0.8rem; }
+      .legal-modal .close-legal { width: 30px; height: 30px; font-size: 1rem; }
+      #download .hero-btns .btn-primary, #download .hero-btns .btn-outline { 
+        font-size: 0.9rem; 
+        padding: 12px 22px;
+      }
+      .license-section { font-size: 0.6rem; }
+      .side-menu { width: 260px; right: -280px; }
+    }
+
+    @media (max-width: 380px) {
+      .hero-btns { flex-wrap: wrap; justify-content: center; gap: 8px; }
+      .hero-btns .btn-primary, .hero-btns .btn-outline { 
+        font-size: 0.8rem; 
+        padding: 10px 18px;
+      }
+      .hero-content h1 { font-size: 1.5rem; }
+      .phone-frame { 
+        width: 200px; 
+        height: 400px; 
+        padding: 6px; 
+        border-radius: 28px; 
+      }
+      .phone-frame .screen { border-radius: 22px; }
+      .features-grid { gap: 8px; }
+      .feature-item { padding: 10px 8px; border-radius: 14px; }
+      .feature-item i { font-size: 1rem; }
+      .feature-item h4 { font-size: 0.6rem; }
+      .feature-item p { font-size: 0.55rem; }
+      .safety-grid { gap: 6px; }
+      .safety-grid .glass-card { padding: 10px 8px; border-radius: 14px; }
+      .safety-grid .glass-card i { font-size: 0.9rem; }
+      .safety-grid .glass-card h4 { font-size: 0.6rem; }
+      .safety-grid .glass-card p { font-size: 0.5rem; }
+      #download .hero-btns .btn-primary, #download .hero-btns .btn-outline { 
+        font-size: 0.8rem; 
+        padding: 10px 18px;
+      }
+      .side-menu { width: 220px; right: -240px; }
+    }
+  </style>
+</head>
+<body>
+  <div id="progress"></div>
+
+  <!-- SIDE MENU OVERLAY -->
+  <div class="side-menu-overlay" id="sideMenuOverlay"></div>
+
+  <!-- SIDE MENU -->
+  <div class="side-menu" id="sideMenu">
+    <button class="close-btn" id="closeSideMenu"><i class="fas fa-times"></i> Close</button>
+    <div class="logo-area-side">
+      <div class="logo-placeholder-side">
+        <img src="app_icon.png" alt="Rent A Partner" />
+      </div>
+      <div class="logo-side">Rent A Partner</div>
+    </div>
+    <ul>
+      <li><a href="#hero" onclick="closeSideMenu()">Home</a></li>
+      <li><a href="#features" onclick="closeSideMenu()">Features</a></li>
+      <li><a href="#safety" onclick="closeSideMenu()">Safety</a></li>
+      <li><a href="#download" onclick="closeSideMenu()">Download</a></li>
+      <li><a href="#" class="btn-primary side-download-btn" style="text-align:center; padding:12px 20px; font-size:0.9rem;"><i class="fas fa-download"></i> Download App</a></li>
+    </ul>
+  </div>
+
+  <!-- LEGAL OVERLAY -->
+  <div class="legal-overlay" id="legalOverlay">
+    <div class="legal-modal" id="legalModal">
+      <button class="close-legal" id="closeLegal"><i class="fas fa-times"></i></button>
+      <div id="legalContent"></div>
+    </div>
+  </div>
+
+  <!-- NAVBAR -->
+  <nav id="navbar">
+    <div class="container nav-inner">
+      <div class="logo-area">
+        <div class="logo-placeholder">
+          <img src="app_icon.png" alt="Rent A Partner Logo" style="width:48px; height:48px; object-fit:contain;" />
+        </div>
+        <div class="logo">Rent A Partner</div>
+      </div>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#hero">Home</a></li>
+        <li><a href="#features">Features</a></li>
+        <li><a href="#safety">Safety</a></li>
+        <li><a href="#download">Download</a></li>
+        <li><a href="#" class="btn-primary" style="padding:6px 16px; font-size:0.8rem;"><i class="fas fa-download"></i> Download</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger"><i class="fas fa-bars"></i></button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="container hero-grid">
+      
+      <!-- Phone Mockup - DESKTOP only (grid item) -->
+      <div class="phone-mockup" data-aos="fade-left" data-aos-duration="1200">
+        <div class="glow-orbs"></div>
+        <div class="phone-frame">
+          <div class="screen">
+            <img src="img.png" alt="App screenshot" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Text Content -->
+      <div class="hero-content" data-aos="fade-up" data-aos-duration="1000">
+        <h1>Find Your <br /><span class="text-gradient">Perfect Companion</span></h1>
+        <p>Book verified companions for travel, events, shopping, fitness, networking, study sessions and more.</p>
+
+        <!-- Phone Mockup - MOBILE only (inside hero-content) -->
+        <div class="phone-mockup" data-aos="fade-left" data-aos-duration="1200">
+          <div class="glow-orbs"></div>
+          <div class="phone-frame">
+            <div class="screen">
+              <img src="img.png" alt="App screenshot" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Buttons -->
+        <div class="hero-btns">
+          <a href="#" class="btn-primary" id="downloadApk"><i class="fab fa-android"></i> Download</a>
+          <a href="#" class="btn-outline"><i class="fab fa-apple"></i> iOS Soon</a>
+        </div>
+
+        <!-- Stats -->
+        <div class="hero-stats">
+          <div><span class="counter" data-target="10000">0</span><small>+ Users</small></div>
+          <div><span class="counter" data-target="2000">0</span><small>+ Verified</small></div>
+          <div><span class="counter" data-target="50000">0</span><small>+ Bookings</small></div>
+        </div>
+      </div>
+      
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section id="features">
+    <div class="container">
+      <h2 class="section-title" data-aos="fade-up">Premium <span class="text-gradient">Features</span></h2>
+      <p class="section-sub" data-aos="fade-up" data-aos-delay="100">Everything you need for safe, verified companionship.</p>
+      <div class="features-grid">
+        <div class="feature-item" data-aos="flip-up"><i class="fas fa-shield-alt"></i><h4>Verified Companions</h4><p>ID, selfie & background</p></div>
+        <div class="feature-item" data-aos="flip-up" data-aos-delay="50"><i class="fas fa-map-pin"></i><h4>Live Tracking</h4><p>Real-time safety</p></div>
+        <div class="feature-item" data-aos="flip-up" data-aos-delay="100"><i class="fas fa-otp"></i><h4>OTP Protected</h4><p>Secure start/end</p></div>
+        <div class="feature-item" data-aos="flip-up" data-aos-delay="150"><i class="fas fa-credit-card"></i><h4>Secure Payments</h4><p>70% earnings</p></div>
+        <div class="feature-item" data-aos="flip-up" data-aos-delay="200"><i class="fas fa-comment-dots"></i><h4>In-App Chat</h4><p>After booking</p></div>
+        <div class="feature-item" data-aos="flip-up" data-aos-delay="250"><i class="fas fa-video"></i><h4>Voice & Video</h4><p>Safe & private</p></div>
+        <div class="feature-item" data-aos="flip-up" data-aos-delay="300"><i class="fas fa-star"></i><h4>Ratings & Reviews</h4><p>Build trust</p></div>
+        <div class="feature-item" data-aos="flip-up" data-aos-delay="350"><i class="fas fa-headset"></i><h4>24/7 Safety</h4><p>Always here</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section style="background: rgba(255,255,255,0.2);">
+    <div class="container">
+      <h2 class="section-title" data-aos="fade-up">How It <span class="text-gradient">Works</span></h2>
+      <div style="display:flex; flex-direction:column; gap:2px;">
+        <div class="step-item" data-aos="fade-right"><span class="step-num">01</span><div><h4>Discover Companions</h4><p>Browse verified profiles by interest, city, activity.</p></div></div>
+        <div class="step-item" data-aos="fade-right" data-aos-delay="80"><span class="step-num">02</span><div><h4>Book Instantly</h4><p>Select date, time, duration & pay securely.</p></div></div>
+        <div class="step-item" data-aos="fade-right" data-aos-delay="160"><span class="step-num">03</span><div><h4>Chat Securely</h4><p>In-app chat & calls after booking.</p></div></div>
+        <div class="step-item" data-aos="fade-right" data-aos-delay="240"><span class="step-num">04</span><div><h4>Meet Safely</h4><p>Live location tracking for peace of mind.</p></div></div>
+        <div class="step-item" data-aos="fade-right" data-aos-delay="320"><span class="step-num">05</span><div><h4>Review Experience</h4><p>Rate & review to help the community.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SAFETY -->
+  <section id="safety">
+    <div class="container">
+      <h2 class="section-title" data-aos="fade-up" style="color:white;">Safety <span class="text-gradient">First</span></h2>
+      <div class="safety-grid">
+        <div class="glass-card" data-aos="fade-up"><i class="fas fa-location-dot"></i><h4>Live Tracking</h4><p>Real-time</p></div>
+        <div class="glass-card" data-aos="fade-up" data-aos-delay="60"><i class="fas fa-badge-check"></i><h4>Verified</h4><p>ID & selfie</p></div>
+        <div class="glass-card" data-aos="fade-up" data-aos-delay="120"><i class="fas fa-otp"></i><h4>OTP</h4><p>Secure start</p></div>
+        <div class="glass-card" data-aos="fade-up" data-aos-delay="180"><i class="fas fa-lock"></i><h4>Payments</h4><p>Deposit</p></div>
+        <div class="glass-card" data-aos="fade-up" data-aos-delay="240"><i class="fas fa-comment"></i><h4>In-App Chat</h4><p>Only after</p></div>
+        <div class="glass-card" data-aos="fade-up" data-aos-delay="300"><i class="fas fa-star"></i><h4>Safety Scores</h4><p>Trust</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DOWNLOAD -->
+  <section id="download">
+    <div class="container">
+      <div data-aos="fade-up" style="text-align:center;">
+        <h2 class="section-title" style="font-size:clamp(1.6rem, 4vw, 3.2rem);">Ready To Find Your <span class="text-gradient">Perfect Companion?</span></h2>
+        <div class="hero-btns" style="justify-content:center; margin-top:20px; flex-wrap:wrap;">
+          <a href="#" class="btn-primary" id="downloadApk2"><i class="fas fa-download"></i> APK</a>
+          <a href="#" class="btn-primary" id="playStore"><i class="fab fa-google-play"></i> Play Store</a>
+          <a href="#" class="btn-outline"><i class="fab fa-apple"></i> App Store</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container footer-grid">
+      <div>
+        <div class="logo-area" style="margin-bottom:6px;">
+          <div class="logo-placeholder" style="width:32px; height:32px;">
+            <img src="app_icon.png" alt="Rent A Partner" style="width:100%; height:100%; object-fit:contain;" />
+          </div>
+          <div class="logo" style="font-size:1.1rem;">Rent A Partner</div>
+        </div>
+        <p style="opacity:0.6; font-size:0.75rem;">Verified companionship marketplace.</p>
+      </div>
+      <div><h4>Platform</h4><a onclick="openLegal('terms')">Terms &amp; Conditions</a><a onclick="openLegal('privacy')">Privacy Policy</a></div>
+      <div><h4>Companions</h4><a onclick="openLegal('companion')">Companion Terms</a><a onclick="openLegal('safety-guide')">Safety Guidelines</a></div>
+      <div><h4>Support</h4><a onclick="openLegal('contact')">Contact Us</a><a onclick="openLegal('faq')">FAQ</a><a onclick="openLegal('license')">License</a></div>
+    </div>
+  </footer>
+
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script>
+    AOS.init({ once: false, offset: 30, duration: 600 });
+
+    // Navbar scroll
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 30);
+      const progress = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight) * 100);
+      document.getElementById('progress').style.width = progress + '%';
+    });
+
+    // ===== SIDE MENU =====
+    const sideMenu = document.getElementById('sideMenu');
+    const sideMenuOverlay = document.getElementById('sideMenuOverlay');
+    const hamburger = document.getElementById('hamburger');
+    const closeSideMenuBtn = document.getElementById('closeSideMenu');
+
+    function openSideMenu() {
+      sideMenu.classList.add('open');
+      sideMenuOverlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeSideMenu() {
+      sideMenu.classList.remove('open');
+      sideMenuOverlay.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    hamburger.addEventListener('click', openSideMenu);
+    closeSideMenuBtn.addEventListener('click', closeSideMenu);
+    sideMenuOverlay.addEventListener('click', closeSideMenu);
+
+    // Close side menu on Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeSideMenu();
+    });
+
+    // ===== COUNTERS =====
+    document.querySelectorAll('.counter').forEach(el => {
+      const target = +el.dataset.target;
+      let current = 0;
+      const step = Math.ceil(target / 50);
+      const update = () => {
+        current += step;
+        if (current >= target) { el.textContent = target.toLocaleString(); return; }
+        el.textContent = current.toLocaleString();
+        requestAnimationFrame(update);
+      };
+      setTimeout(update, 600);
+    });
+
+    // Magnetic buttons
+    document.querySelectorAll('.btn-primary, .btn-outline').forEach(btn => {
+      btn.addEventListener('mouseenter', function() {
+        gsap.to(this, { scale: 1.04, duration: 0.2, ease: "power1.out" });
+      });
+      btn.addEventListener('mouseleave', function() {
+        gsap.to(this, { scale: 1, duration: 0.3, ease: "power1.out" });
+      });
+    });
+
+    // Parallax
+    document.addEventListener('mousemove', (e) => {
+      const x = (e.clientX / window.innerWidth - 0.5) * 8;
+      const y = (e.clientY / window.innerHeight - 0.5) * 8;
+      gsap.to('.phone-mockup', { x: x * 0.25, y: y * 0.25, duration: 1.2, ease: "power1.out" });
+    });
+
+    // LEGAL OVERLAY DATA
+    const legalData = {
+      terms: {
+        title: 'Terms & Conditions',
+        content: `
+          <p><strong>Last Updated:</strong> June 2026</p>
+          <p>Welcome to Rent A Partner. By accessing or using our platform, you agree to these Terms &amp; Conditions.</p>
+          <h3>Eligibility</h3><ul><li>Users must be at least 18 years old.</li><li>Users must provide accurate information during registration.</li><li>Fake profiles and impersonation are strictly prohibited.</li></ul>
+          <h3>Platform Purpose</h3><p>Rent A Partner is a companionship booking platform for lawful social activities including: Events, Travel, Coffee Meetups, Shopping, Fitness, Networking, Study Sessions. The platform is not intended for escort services, prostitution, illegal activities, or adult services.</p>
+          <h3>User Responsibilities</h3><ul><li>Respect all platform members.</li><li>Follow local laws.</li><li>Use only in-app payment systems.</li><li>Avoid harassment, discrimination, or abusive behavior.</li></ul>
+          <h3>Booking Rules</h3><ul><li>All bookings must be completed through the platform.</li><li>Direct payments outside the platform are prohibited.</li><li>Chat, voice calls, and video calls unlock only after booking confirmation.</li></ul>
+          <h3>Refund Policy</h3><p><strong>Customer Cancellation:</strong></p><ul><li>More than 12 hours before booking: 75% refund.</li><li>Between 2–12 hours before booking: 50% refund.</li><li>Less than 1 hour before booking: No refund.</li></ul><p><strong>Companion Cancellation:</strong></p><ul><li>Customer receives a 100% refund.</li><li>Companion penalty is deducted from their security deposit.</li></ul>
+          <h3>Account Suspension</h3><p>Accounts may be suspended or permanently banned for: Fraud, Fake identities, Harassment, Illegal activities, Violations of platform policies.</p>
+          <h3>Limitation of Liability</h3><p>Rent A Partner acts only as a technology platform and is not responsible for personal interactions between users and companions.</p>
+        `
+      },
+      privacy: {
+        title: 'Privacy Policy',
+        content: `
+          <h3>Information We Collect</h3>
+          <p><strong>Customer Information:</strong> Name, Email Address, Date of Birth, Gender</p>
+          <p><strong>Companion Information:</strong> Government ID, Live Selfie Verification, Address Information, Profile Photos, Instagram ID, Languages, Earnings Information</p>
+          <p><strong>Booking Information:</strong> Booking History, Payment Transactions, Reviews and Ratings</p>
+          <p><strong>Location Information:</strong> During active bookings, live location tracking is mandatory for safety purposes.</p>
+          <h3>How We Use Information</h3><ul><li>Verify users and companions</li><li>Process bookings</li><li>Improve platform safety</li><li>Handle disputes</li><li>Process payments</li><li>Provide customer support</li></ul>
+          <h3>Data Security</h3><ul><li>Secure database storage</li><li>Encrypted communications</li><li>Access controls</li><li>Activity monitoring</li></ul><p>However, no internet-based service can guarantee absolute security.</p>
+          <h3>Data Sharing</h3><p>We do not sell personal information. Information may be shared only: With payment providers, To comply with legal obligations, For fraud prevention and safety investigations.</p>
+        `
+      },
+      companion: {
+        title: 'Companion Terms',
+        content: `
+          <h3>Companion Earnings</h3>
+          <p>For every completed booking:</p><ul><li>Companion receives 70%</li><li>Platform fee is 25%</li><li>Security deposit contribution is 5%</li></ul>
+          <p><strong>Example:</strong> Booking Amount: ₹1000 → Companion Earnings: ₹700 | Platform Fee: ₹250 | Security Deposit: ₹50</p>
+          <h3>Application Requirements</h3><ul><li>Aadhaar Card or Driving License</li><li>Live Selfie Verification</li><li>Minimum 5 Real Photos</li><li>Height</li><li>Languages</li><li>Instagram ID</li><li>Current Address</li><li>Permanent Address</li><li>Bio and Interests</li></ul><p>Applications are subject to approval.</p>
+          <h3>Security Deposit</h3><p>Companions maintain a security deposit wallet. The deposit may be used for: Cancellation penalties, Fraud protection, Customer compensation, Platform violations.</p>
+          <h3>Cancellation Policy</h3><p>If a companion cancels a confirmed booking: Customer receives a full refund. Penalty is deducted from the companion's deposit balance. Repeated cancellations may result in: Reduced visibility, Suspension, Permanent account termination.</p>
+          <h3>Mandatory Requirements</h3><ul><li>Keep GPS enabled during bookings.</li><li>Complete Start OTP verification.</li><li>Complete End OTP verification.</li><li>Maintain professional conduct.</li></ul>
+        `
+      },
+      'safety-guide': {
+        title: 'Safety Guidelines',
+        content: `
+          <h3>Before Meeting</h3><ul><li>Verify booking details.</li><li>Communicate only through the app.</li><li>Review companion/customer profile.</li></ul>
+          <h3>During Booking</h3><ul><li>Keep live location enabled.</li><li>Stay within agreed activity boundaries.</li><li>Report suspicious behavior immediately.</li></ul>
+          <h3>Prohibited Activities</h3><ul><li>Sexual services</li><li>Escort services</li><li>Prostitution</li><li>Human trafficking</li><li>Illegal activities</li><li>Drug-related activities</li><li>Harassment</li><li>Violence</li><li>Fraud</li></ul><p>Violations may result in permanent account termination and legal action.</p>
+          <h3>Emergency Support</h3><ul><li>Report companions or customers.</li><li>Contact platform support.</li><li>Submit disputes.</li><li>Access emergency reporting tools.</li></ul>
+        `
+      },
+      faq: {
+        title: 'Frequently Asked Questions',
+        content: `
+          <h3>What is Rent A Partner?</h3><p>Rent A Partner is a verified companionship booking platform where users can book companions for lawful social activities.</p>
+          <h3>Is this a dating app?</h3><p>No. Rent A Partner is a companionship marketplace, not a dating or matchmaking platform.</p>
+          <h3>How do I become a companion?</h3><p>Submit an application with: Government ID, Live Selfie Verification, Photos, Personal Information. Applications are reviewed by administrators.</p>
+          <h3>How much does a companion earn?</h3><p>Companions receive 70% of booking revenue. Platform retains 25%, and 5% goes to security deposit.</p>
+          <h3>Can I chat before booking?</h3><p>No. Chat, voice calls, and video calls unlock only after booking confirmation.</p>
+          <h3>Is live location mandatory?</h3><p>Yes. Live location tracking is required during active bookings for safety purposes.</p>
+          <h3>What happens if a companion cancels?</h3><p>Customer receives a full refund. Companion penalty is deducted from their deposit wallet.</p>
+          <h3>How do refunds work?</h3><p>Customer Cancellation: More than 12 hours: 75% refund | 2–12 hours: 50% refund | Less than 1 hour: No refund</p>
+        `
+      },
+      contact: {
+        title: 'Contact Us',
+        content: `
+          <h3>Rent A Partner Support</h3>
+          <p style="font-size:1.2rem; margin:12px 0;"><i class="fas fa-envelope" style="color:#FF4D8D;"></i> <strong>rrindustryy@gmail.com</strong></p>
+          <p><strong>Response Time:</strong> General Support: Within 24–48 hours | Urgent Safety Reports: Priority handling</p>
+          <p style="margin-top:12px;"><strong>Need help?</strong> Our support team is available to assist with:</p>
+          <ul><li>Booking Issues</li><li>Companion Applications</li><li>Payment Problems</li><li>Refund Requests</li><li>Account Recovery</li><li>Safety Reports</li><li>Technical Problems</li></ul>
+        `
+      },
+      license: {
+        title: 'License & Ownership',
+        content: `
+          <h3>RENT A PARTNER — Proprietary Software License &amp; Ownership Notice</h3>
+          <p>Copyright © 2026 Rent A Partner. All Rights Reserved.</p>
+          <h3>Owner &amp; Intellectual Property Holder</h3>
+          <p>This software, application, website, source code, design system, branding, database structure, user interface, user experience, business logic, documentation, graphics, content, and all related intellectual property are exclusively owned by:</p>
+          <p><strong>Ritesh Rathod</strong><br>📞 Phone: +91 7721874530<br>📧 Personal Email: riteshrathod016@gmail.com<br>📧 Company Email: rrindustryy@gmail.com</p>
+          <h3>Company Information</h3>
+          <p>Developed &amp; Maintained By: <strong>RR Industryy</strong></p>
+          <p>All rights, trademarks, copyrights, trade secrets, source code, designs, algorithms, business models, and proprietary technologies related to Rent A Partner are the sole property of RR Industryy and Ritesh Rathod.</p>
+          <h3>Copyright Notice</h3>
+          <p>Copyright © 2026 Ritesh Rathod / RR Industryy. All Rights Reserved.</p>
+          <p>No part of this application, website, source code, database design, API architecture, user interface, branding assets, logos, graphics, documentation, or business processes may be: Copied, Reproduced, Modified, Distributed, Sold, Licensed, Reverse Engineered, Republished, or Decompiled without prior written permission from the owner.</p>
+          <h3>Software License</h3>
+          <p>This software is proprietary software. Permission is granted solely to end users to access and use the Rent A Partner platform through authorized applications and websites. Users are NOT granted any rights to: Source Code, Database Structure, Internal APIs, Business Logic, Proprietary Algorithms, or Platform Branding. All such rights remain exclusively reserved.</p>
+          <h3>Trademark Notice</h3>
+          <p>The following names, logos, slogans, and branding elements are protected and may not be used without authorization:<br><strong>Rent A Partner™ · RR Industryy™ · Find Your Perfect Companion™</strong></p>
+          <p>Any unauthorized use may result in legal action.</p>
+          <h3>Confidentiality</h3>
+          <p>All backend systems, administrative tools, internal dashboards, source code repositories, database structures, analytics systems, and operational procedures are confidential and proprietary information belonging to RR Industryy.</p>
+          <h3>Unauthorized Use</h3>
+          <p>Unauthorized copying, distribution, modification, reverse engineering, scraping, automation, cloning, or commercial exploitation of the platform is strictly prohibited. Violators may be subject to: Account termination, Civil claims, Monetary damages, Injunctive relief, Criminal prosecution where applicable.</p>
+          <h3>Legal Statement</h3>
+          <p>By accessing, downloading, installing, or using Rent A Partner, you acknowledge that all intellectual property rights, ownership rights, and proprietary rights belong exclusively to Ritesh Rathod and RR Industryy and that no ownership rights are transferred to any user, developer, contractor, or third party.</p>
+          <p style="margin-top:12px;"><strong>© 2026 Ritesh Rathod / RR Industryy. All Rights Reserved.</strong><br>Rent A Partner™ is a proprietary software product of RR Industryy.</p>
+        `
+      }
+    };
+
+    function openLegal(type) {
+      const data = legalData[type];
+      if (!data) return;
+      document.getElementById('legalContent').innerHTML = `<h2>${data.title}</h2>${data.content}`;
+      document.getElementById('legalOverlay').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    document.getElementById('closeLegal').addEventListener('click', () => {
+      document.getElementById('legalOverlay').classList.remove('active');
+      document.body.style.overflow = '';
+    });
+
+    document.getElementById('legalOverlay').addEventListener('click', (e) => {
+      if (e.target === e.currentTarget) {
+        document.getElementById('legalOverlay').classList.remove('active');
+        document.body.style.overflow = '';
+      }
+    });
+
+    // Download buttons
+    document.getElementById('downloadApk')?.addEventListener('click', (e) => {
+      e.preventDefault();
+      alert('APK download will be available soon!');
+    });
+    document.getElementById('downloadApk2')?.addEventListener('click', (e) => {
+      e.preventDefault();
+      alert('APK download will be available soon!');
+    });
+    document.getElementById('playStore')?.addEventListener('click', (e) => {
+      e.preventDefault();
+      alert('Google Play Store link coming soon!');
+    });
+  </script>
+</body>
+</html>
